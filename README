@@ -1,0 +1,1 @@
+gcc -I /usr/include/GNUstep/ -L /usr/lib/GNUstep/ -lgnustep-base -fconstant-string-class=NSConstantString -o test src/Test.m src/main.m
