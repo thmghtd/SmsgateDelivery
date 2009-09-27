@@ -1,22 +1,12 @@
-//
-//  DataStore.m
-//  SmsgateDelivery
-//
-//  Created by Jacob Rhoden on 26/09/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
 #import "DataStore.h"
 
 @implementation DataStore
-
-@synthesize errorNumber;
 
 - (void) setDatabase: (NSString*) aDatabase {
 	database = aDatabase;
 }
 
-- (bool) connectTo: (NSString*) hostname asUser: (NSString*) username withPassword: (NSString*) password {
+- (BOOL) connectTo: (NSString*) hostname asUser: (NSString*) username withPassword: (NSString*) password {
 	NSLog(@"Connecting to %@@%@ as %@",database,hostname,username);
 	db = mysql_init(NULL);
 	if (!mysql_real_connect(db, [hostname cStringUsingEncoding: NSUTF8StringEncoding],
@@ -24,12 +14,12 @@
 							[password cStringUsingEncoding: NSUTF8StringEncoding],
 							[database cStringUsingEncoding: NSUTF8StringEncoding], 0, NULL, 0)) { 
 		NSLog(@"Connection failed: %s\n", mysql_error(db)); 
-		return false;
+		return NO;
 	} 
 	
 	NSLog(@"Connected");
 	[self deliverySetup];
-	return true;
+	return YES;
 }
 
 - (Message*) findAndLockNextMessage {
@@ -58,7 +48,7 @@
 	[message setCost: [[NSString stringWithCString: row[5] encoding: NSUTF8StringEncoding] doubleValue]];
 	mysql_free_result(res);
 	
-	NSString* update = [NSString stringWithFormat: @"UPDATE message SET status=1 WHERE id=%d", message.uid];
+	NSString* update = [NSString stringWithFormat: @"UPDATE message SET status=1 WHERE id=%d", [message uid]];
 	mysql_query(db, [update cStringUsingEncoding: NSUTF8StringEncoding]);
 	long updates =(long) mysql_affected_rows(db);
 	if(updates != 1) {
@@ -70,7 +60,7 @@
 }
 
 - (void) markMessageRescheduled: (Message*) message {
-	NSString* update = [NSString stringWithFormat: @"UPDATE message SET status=2 WHERE id=%d", message.uid];
+	NSString* update = [NSString stringWithFormat: @"UPDATE message SET status=2 WHERE id=%d", [message uid]];
 	mysql_query(db, [update cStringUsingEncoding: NSUTF8StringEncoding]);
 	long updates =(long) mysql_affected_rows(db);
 	if(updates != 1) {
@@ -80,7 +70,7 @@
 }
 
 - (void) markMessageDelivered: (Message*) message {
-	NSString* update = [NSString stringWithFormat: @"DELETE FROM message WHERE id=%d", message.uid];
+	NSString* update = [NSString stringWithFormat: @"DELETE FROM message WHERE id=%d", [message uid]];
 	mysql_query(db, [update cStringUsingEncoding: NSUTF8StringEncoding]);
 	long updates =(long) mysql_affected_rows(db);
 	if(updates != 1) {
@@ -120,7 +110,6 @@
 	}
 }
 
-
 - (void) disconnect {
 	NSLog(@"Disconnecting");
 	mysql_close(db);
@@ -129,6 +118,10 @@
 
 - (NSString*) error {
 	return error;
+}
+
+- (int) errorNumber {
+	return errorNumber;
 }
 
 @end

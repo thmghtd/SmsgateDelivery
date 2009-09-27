@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 #import "DataStore.h"
 #import "Message.h"
 #import "UrlDownloader.h"

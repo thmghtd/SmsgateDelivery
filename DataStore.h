@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 #import <mysql.h>
 #import "Message.h"
 
@@ -8,14 +9,13 @@
 	int errorNumber;
 }
 
-@property int errorNumber;
-
 - (void) setDatabase: (NSString*) aDatabase;
 
-- (bool) connectTo: (NSString*) hostname asUser: (NSString*) username withPassword: (NSString*) password;
+- (BOOL) connectTo: (NSString*) hostname asUser: (NSString*) username withPassword: (NSString*) password;
 - (void) disconnect;
 - (void) deliverySetup;
 - (NSString*) error;
+- (int) errorNumber;
 
 - (Message*) findAndLockNextMessage;
 - (void) markMessageRescheduled: (Message*) message;

@@ -4,13 +4,13 @@
 @implementation MessageProcessor
 
 - (void) deliverMessage {
-	NSLog(@"deliverMessage: Attempting to deliver message to %@", message.destination);
+	NSLog(@"deliverMessage: Attempting to deliver message to %@", [message destination]);
 	[UrlDownloader get: @"http://jacobrhoden.com/" responder: self];
 }
 
 -(void) urlResponse: (NSString*) response {
 	[db markMessageDelivered: message];
-	NSLog(@"urlResponse: Delivered message to %@", message.destination);
+	NSLog(@"urlResponse: Delivered message to %@", [message destination]);
 	[message release];
 	message = nil;
 	[self processMessage];
@@ -18,7 +18,7 @@
 
 -(void) urlFailed: (NSString*) error {
 	[db markMessageRescheduled: message];
-	NSLog(@"urlFailed: Message to %@ not delivered. Rescheduling.", message.destination);
+	NSLog(@"urlFailed: Message to %@ not delivered. Rescheduling.", [message destination]);
 	[message release];
 	message = nil;
 	[self processMessage];
@@ -49,7 +49,7 @@
 		if(message == nil) {
 			usleep(500000);
 			// Is message nil because an error occured?
-			if(db.errorNumber == 2006)
+			if([db errorNumber] == 2006)
 				break;
 			
 			// If no error occured, no messages to deliver, lets try to resend
@@ -62,7 +62,7 @@
 		
 	} while(message == nil);
 	
-	if(db.errorNumber == 2006)
+	if([db errorNumber] == 2006)
 		[self process];
 	else {
 		[message retain];

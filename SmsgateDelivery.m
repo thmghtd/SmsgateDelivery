@@ -3,7 +3,7 @@
 #import "MessageProcessor.h"
 
 int main (int argc, const char * argv[]) {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
 
 	MessageProcessor* processor = [[MessageProcessor alloc] init];
@@ -13,5 +13,5 @@ int main (int argc, const char * argv[]) {
 	
 	[processor release];
 	[pool drain];
-    return 0;
+	return 0;
 }
