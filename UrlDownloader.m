@@ -43,7 +43,7 @@
     NSEnumerator* keyEnum = [values keyEnumerator];
 	NSString* key;
     while ((key = [keyEnum nextObject])) {
-		if(post.length==0)
+		if([post length]==0)
 			post = [post stringByAppendingFormat: @"%@=%@", key, [values objectForKey: key]];
 		else
 			post = [post stringByAppendingFormat: @"&%@=%@", key, [values objectForKey: key]];

@@ -1,11 +1,3 @@
-//
-//  MessageProcessor.m
-//  SmsgateDelivery
-//
-//  Created by Jacob Rhoden on 27/09/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
 #import "MessageProcessor.h"
 #import "UrlDownloader.h"
 

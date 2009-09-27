@@ -1,12 +1,3 @@
-//
-//  DataStore.h
-//  SmsgateDelivery
-//
-//  Created by Jacob Rhoden on 26/09/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
-#import <Cocoa/Cocoa.h>
 #import <mysql.h>
 #import "Message.h"
 

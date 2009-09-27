@@ -1,13 +1,3 @@
-//
-//  Message.h
-//  SmsgateDelivery
-//
-//  Created by Jacob Rhoden on 26/09/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
-
-#import <Cocoa/Cocoa.h>
-
 
 @interface Message : NSObject {
 	int uid;
@@ -18,11 +8,18 @@
 	double cost;
 }
 
-@property int uid;
-@property int accountUid;
-@property (retain) NSString* source;
-@property (retain) NSString* destination;
-@property (retain) NSString* text;
-@property double cost;
+-(int) uid;
+-(int) accountUid;
+-(NSString*) source;
+-(NSString*) destination;
+-(NSString*) text;
+-(double) cost;
+
+-(void) setUid: (int) aUid;
+-(void) setAccountUid: (int) aAccountUid;
+-(void) setSource: (NSString*) aSource;
+-(void) setDestination: (NSString*) aDestination;
+-(void) setText: (NSString*) aText;
+-(void) setCost: (double) cost;
 
 @end
