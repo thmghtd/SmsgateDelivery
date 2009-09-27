@@ -48,7 +48,7 @@
 	text = aText;
 }
 
--(void) setCost: (double) cost {
+-(void) setCost: (double) aCost {
 	cost = aCost;
 }
 

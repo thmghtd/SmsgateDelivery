@@ -50,12 +50,12 @@
 		return nil;
 	}
 	message = [[Message alloc] init];
-	message.uid = [[NSString stringWithCString: row[0] encoding: NSUTF8StringEncoding] intValue];
-	message.source = [NSString stringWithCString:row[1] encoding: NSUTF8StringEncoding];
-	message.destination = [NSString stringWithCString:row[2] encoding: NSUTF8StringEncoding];
-	message.text = [NSString stringWithCString:row[3] encoding: NSUTF8StringEncoding];
-	message.accountUid = [[NSString stringWithCString: row[4] encoding: NSUTF8StringEncoding] intValue];
-	message.cost = [[NSString stringWithCString: row[5] encoding: NSUTF8StringEncoding] doubleValue];
+	[message setUid: [[NSString stringWithCString: row[0] encoding: NSUTF8StringEncoding] intValue]];
+	[message setSource: [NSString stringWithCString:row[1] encoding: NSUTF8StringEncoding]];
+	[message setDestination: [NSString stringWithCString:row[2] encoding: NSUTF8StringEncoding]];
+	[message setText: [NSString stringWithCString:row[3] encoding: NSUTF8StringEncoding]];
+	[message setAccountUid: [[NSString stringWithCString: row[4] encoding: NSUTF8StringEncoding] intValue]];
+	[message setCost: [[NSString stringWithCString: row[5] encoding: NSUTF8StringEncoding] doubleValue]];
 	mysql_free_result(res);
 	
 	NSString* update = [NSString stringWithFormat: @"UPDATE message SET status=1 WHERE id=%d", message.uid];
@@ -88,11 +88,11 @@
 		return;
 	}
 	NSString* history = [NSString stringWithFormat: @"insert into history (account_id,source,destination, message,otime,cost) values(%d,'%@','%@','%@',CURRENT_TIMESTAMP,%f)",
-						 message.accountUid,
-						 message.source,
-						 message.destination,
-						 message.text,
-						 message.cost];
+						 [message accountUid],
+						 [message source],
+						 [message destination],
+						 [message text],
+						 [message cost]];
 	mysql_query(db, [history cStringUsingEncoding: NSUTF8StringEncoding]);
 	updates =(long) mysql_affected_rows(db);
 	if(updates != 1) {

@@ -20,6 +20,6 @@
 -(void) setSource: (NSString*) aSource;
 -(void) setDestination: (NSString*) aDestination;
 -(void) setText: (NSString*) aText;
--(void) setCost: (double) cost;
+-(void) setCost: (double) aCost;
 
 @end
