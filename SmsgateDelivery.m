@@ -8,9 +8,10 @@ int main (int argc, const char * argv[]) {
 
 	MessageProcessor* processor = [[MessageProcessor alloc] init];
 	[processor process];
-	
+
+	NSLog(@"Dropping into run loop");
 	[runLoop run];
-	
+
 	[processor release];
 	[pool drain];
 	return 0;

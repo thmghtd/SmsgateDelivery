@@ -1,1 +1,4 @@
-gcc -I /usr/include/GNUstep/ -L /usr/lib/GNUstep/ -lgnustep-base -fconstant-string-class=NSConstantString -o test src/Test.m src/main.m
+gcc -I /usr/include/GNUstep/ -I /usr/include/mysql -L /usr/lib/GNUstep/\
+		-lgnustep-base -lmysqlclient\
+		-g -ggdb\
+		-fconstant-string-class=NSConstantString -o test *.m
